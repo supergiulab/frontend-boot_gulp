@@ -44,3 +44,26 @@ gulp.task('css', function(){
 	.pipe(gulp.dest(dist))
 });
 ```
+
+## Setup clean task
+install del in project folder
+
+`$ npm i del -D`
+
+create the task in gulp file
+
+```
+gulp.task('clean', function(done) {
+	del([dist])
+	done();
+});
+```
+
+## Setup watch task
+in gulpfile.js
+
+```
+gulp.task('watch', function() {
+	gulp.watch(entry, gulp.series('css'));
+});
+```

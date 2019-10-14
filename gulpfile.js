@@ -12,6 +12,11 @@ gulp.task('css', function(done){
 	done();
 });
 
-gulp.task('clean', function(cb) {
-	del(['dist'], cb);
+gulp.task('clean', function(done) {
+	del([dist])
+	done();
+});
+
+gulp.task('watch', function() {
+	gulp.watch(entry, gulp.series('css'));
 });
