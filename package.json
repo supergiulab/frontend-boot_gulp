@@ -1,0 +1,19 @@
+{
+  "name": "frontend-boot",
+  "version": "1.0.0",
+  "description": "SuPerGiu @ COM&C No frills Agency",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nofrillsagency/frontend-boot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nofrillsagency/frontend-boot/issues"
+  },
+  "homepage": "https://github.com/nofrillsagency/frontend-boot#readme"
+}
