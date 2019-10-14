@@ -33,7 +33,7 @@ in gulpfile.js add a task for styles
 first set input and output dir
 ```
 var entry = 'assets/css/**/*.scss',
-	dist  = 'dist/';
+	dist  = 'dist';
 ```
 
 add styles task
