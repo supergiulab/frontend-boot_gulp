@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nofrillsagency/frontend-boot/issues"
   },
-  "homepage": "https://github.com/nofrillsagency/frontend-boot#readme"
+  "homepage": "https://github.com/nofrillsagency/frontend-boot#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
 }
