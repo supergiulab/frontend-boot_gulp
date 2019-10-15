@@ -1,2 +1,13 @@
 h1 {
-  color: blue; }
+  color: green;
+}
+
+div.flex-test {
+  display: flex;
+  flex-direction: row;
+}
+
+div.flex-test div {
+  flex: 1 1 auto;
+  text-align: center;
+}

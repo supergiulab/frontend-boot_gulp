@@ -88,3 +88,28 @@ gulp.task('watch', gulp.series('css', function(){
 }));
 ```
 
+## Autoprefixer
+install gulp-autoprefixer in project root
+
+`npm i gulp-autoprefixer -D`
+
+in gulpfile.js add autoprefixer
+
+```
+const autoprefixer = require('gulp-autoprefixer');
+```
+
+in "sass" task add autoprefixer before dest
+
+```
+...
+let autoprefixOpt = {
+	browsers: ['last 2 versions', '> 5%', 'FIrefox ESR']
+}
+...
+
+...
+.pipe(autoprefixer(autoprefixOpt))
+...
+```
+
