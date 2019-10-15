@@ -1,11 +1,14 @@
-const gulp = require("gulp");
-const sass = require("gulp-sass");
-const del  = require("del");
-const bs   = require("browser-sync").create();
-const autoprefixer = require("gulp-autoprefixer");
+const gulp         = require("gulp");
+const sass         = require("gulp-sass");
+const del          = require("del");
+const bs           = require("browser-sync").create();
+const postcss      = require("gulp-postcss");
+const autoprefixer = require("autoprefixer");
+const cssnano      = require("cssnano");
 
-const entry = 'assets/css/**/*.scss',
-	  dist  = 'dist';
+const entryCss = 'assets/css/**/*.scss',
+	  entryJs  = 'assets/js/**/*.js',
+	  dist     = 'dist';
 
 let sassOpt = {
 	errLogToConsole: true,
@@ -18,22 +21,30 @@ gulp.task('clean', (done) => {
 });
 
 gulp.task('css', (done) => {
-	gulp.src(entry)
+	gulp.src(entryCss)
 	.pipe(sass(sassOpt).on('error', sass.logError))
+	.pipe(postcss([ autoprefixer(), cssnano() ]))
 	.pipe(gulp.dest(dist))
-	.pipe(autoprefixer())
 	.pipe(bs.reload({stream: true}))
 	done();
 });
 
-const out = gulp.series('clean', 'css');
-gulp.task('out', out);
+gulp.task('css:dev', (done) => {
+	gulp.src(entryCss)
+	.pipe(sass(sassOpt).on('error', sass.logError))
+	.pipe(gulp.dest(dist))
+	.pipe(bs.reload({stream: true}))
+	done();
+});
 
 gulp.task('watch', gulp.series('css', () => {
 	bs.init({
 		server: { baseDir: './' }
 	});
 
-	gulp.watch(entry, gulp.series('css'));
-	gulp.watch([entry, './index.html']).on('change', bs.reload);
+	gulp.watch(entryCss, gulp.series('css'));
+	gulp.watch([entryCss, './index.html']).on('change', bs.reload);
 }));
+
+const out = gulp.series('clean', 'css');
+gulp.task('out', out);

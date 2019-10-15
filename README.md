@@ -88,28 +88,26 @@ gulp.task('watch', gulp.series('css', function(){
 }));
 ```
 
-## Autoprefixer
-install gulp-autoprefixer in project root
+## Autoprefixer + Cssnano
+install postcss, autoprefixer, cssnano
 
-`npm i gulp-autoprefixer -D`
+`npm i postcss autoprefix cssnano -D`
 
-in gulpfile.js add autoprefixer
-
-```
-const autoprefixer = require('gulp-autoprefixer');
-```
-
-in "sass" task add autoprefixer before dest
+in gulpfile.js pipe postcss and pass autoprefixer e cssnano instances
 
 ```
 ...
-let autoprefixOpt = {
-	browsers: ['last 2 versions', '> 5%', 'FIrefox ESR']
-}
-...
-
-...
-.pipe(autoprefixer(autoprefixOpt))
+.pipe(postcss([ autoprefixer(), cssnano() ]))
 ...
 ```
 
+to define autoprefixer supported browsers add browserslist parameter to package.json
+
+```
+"browserslist": [
+	"last 2 version",
+	"> 1%",
+	"IE 10",
+	"IE 9"
+]
+```

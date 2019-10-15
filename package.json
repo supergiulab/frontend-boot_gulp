@@ -20,7 +20,6 @@
     "browser-sync": "^2.26.7",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
     "gulp-sass": "^4.0.2"
   },
   "browserslist": [
@@ -28,5 +27,10 @@
     "> 1%",
     "IE 10",
     "IE 9"
-  ]
+  ],
+  "dependencies": {
+    "autoprefixer": "^9.6.5",
+    "cssnano": "^4.1.10",
+    "gulp-postcss": "^8.0.0"
+  }
 }
