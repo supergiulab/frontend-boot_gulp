@@ -67,3 +67,24 @@ gulp.task('watch', function() {
 	gulp.watch(entry, gulp.series('css'));
 });
 ```
+
+## Browser Sync
+install browser-sync in project root
+
+`npm i browser-sync -D`
+
+in gulpfile.js add browser-sync and attach it to watch task
+
+```
+const browserSync = require("browser-sync").create();
+
+gulp.task('watch', gulp.series('css', function(){
+	bs.init({
+		server: { baseDir: './' }
+	});
+
+	gulp.watch(entry, gulp.series('css'));
+	gulp.watch(entry).on('change', bs.reload);
+}));
+```
+
