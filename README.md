@@ -111,3 +111,41 @@ to define autoprefixer supported browsers add browserslist parameter to package.
 	"IE 9"
 ]
 ```
+
+## Concatenate and minify Javascript
+install dependencies in project root
+
+`npm i gulp-concat gulp-rename gulp-uglify -D`
+
+in gulpfile.js require dependencies and add "script" task
+
+```
+const concat = require("gulp-cocat");
+const rename = require("gulp-rename");
+const uglify = require("gulp-uglify");
+
+gulp.task('js', (done) => {
+
+});
+```
+
+## Compile ES6
+install dependencies in project root
+
+`npm i @babel/core @babel/preset-env gulp-babel -D`
+
+require dependencies
+
+`const babel = require("gulp-babel");`
+
+pipe babel
+
+```
+...
+.pipe(babel({
+	presets: [
+		['@babel/env', { modules: false }]
+	]
+}))
+...
+```
