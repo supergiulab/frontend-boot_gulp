@@ -90,4 +90,4 @@ gulp.task('watch', gulp.series('css', 'js', () => {
 	gulp.watch([entryJsDir, entryCss, './index.html']).on('change', bs.reload);
 }));
 
-gulp.task('default', gulp.series('clean', 'css', 'js', 'watch'));
+gulp.task('default', gulp.series('clean', 'css:dev', 'js:dev', 'watch'));
