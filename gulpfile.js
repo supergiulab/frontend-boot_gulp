@@ -33,7 +33,9 @@ gulp.task('clean', (done) => {
 gulp.task('css', (done) => {
 	gulp.src(entryCss)
 	.pipe(sass(sassOpt).on('error', sass.logError))
+	.pipe( sourcemaps.init({ loadMaps: true }) )
 	.pipe(postcss([ autoprefixer(), cssnano() ]))
+	.pipe( sourcemaps.write( './' ) )
 	.pipe(gulp.dest(dist))
 	.pipe(bs.reload({stream: true}))
 	done();

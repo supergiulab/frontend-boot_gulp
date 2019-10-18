@@ -1,13 +1,2 @@
-h1 {
-  color: green;
-}
-
-div.flex-test {
-  display: flex;
-  flex-direction: row;
-}
-
-div.flex-test div {
-  flex: 1 1 auto;
-  text-align: center;
-}
+h1{color:green}div.flex-test{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}div.flex-test div{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;text-align:center}
+/*# sourceMappingURL=style.css.map */
