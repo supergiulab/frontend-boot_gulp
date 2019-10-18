@@ -132,20 +132,23 @@ gulp.task('js', (done) => {
 ## Compile ES6
 install dependencies in project root
 
-`npm i @babel/core @babel/preset-env gulp-babel -D`
+- browserify
+- babelify
+	- @babel/core
+	- @babel/preset-env
+- sourcemaps
+- vinyl-source-stream
+- vynil-buffer
+- gulp-uglify
 
-require dependencies
+es. `npm i browserify -D`
 
-`const babel = require("gulp-babel");`
-
-pipe babel
+after install babelify define presets in package.json file
 
 ```
 ...
-.pipe(babel({
-	presets: [
-		['@babel/env', { modules: false }]
-	]
-}))
+"babel": {
+	"presets": [ "env" ]
+}
 ...
 ```

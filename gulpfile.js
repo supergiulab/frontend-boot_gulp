@@ -5,14 +5,20 @@ const bs           = require("browser-sync").create();
 const concat       = require("gulp-concat");
 const rename       = require("gulp-rename");
 const uglify       = require("gulp-uglify");
-const babel        = require("gulp-babel");
+const browserify   = require("browserify");
+const babelify     = require("babelify");
+const source       = require("vinyl-source-stream");
+const buffer       = require("vinyl-buffer");
+const sourcemaps   = require("gulp-sourcemaps");
 const postcss      = require("gulp-postcss");
 const autoprefixer = require("autoprefixer");
 const cssnano      = require("cssnano");
 
-const entryCss = 'assets/css/**/*.scss',
-	  entryJs  = 'assets/js/**/*.js',
-	  dist     = 'dist';
+const entryCss   = 'assets/css/**/*.scss',
+	  entryJsDir = 'assets/js/',
+	  entryJs    = 'app.js',
+	  entryJsW   = 'assets/js/**/*.js',
+	  dist       = 'dist';
 
 let sassOpt = {
 	errLogToConsole: true,
@@ -42,26 +48,29 @@ gulp.task('css:dev', (done) => {
 });
 
 gulp.task('js', (done) => {
-	gulp.src(entryJs)
-		.pipe(concat('scripts.js'))
-		.pipe(gulp.dest(dist))
-		.pipe(rename('scripts.min.js'))
-		.pipe(babel({
-			presets: ['es2015']
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest(dist))
+	return browserify({
+		entries: [entryJsDir + entryJs]
+	})
+	.transform( babelify, { presets: ['@babel/preset-env'] } )
+	.bundle()
+	.pipe( source( entryJs ) )
+	.pipe( rename({ extname: '.min.js' }) )
+	.pipe( buffer() )
+	.pipe( sourcemaps.init({ loadMaps: true }) )
+	.pipe( uglify() )
+	.pipe( sourcemaps.write( './' ) )
+	.pipe( gulp.dest(dist) )
 	done();
 });
 
-gulp.task('watch', gulp.series('css', () => {
+gulp.task('watch', gulp.series('css', 'js', () => {
 	bs.init({
 		server: { baseDir: './' }
 	});
 
 	gulp.watch(entryCss, gulp.series('css'));
-	gulp.watch([entryCss, './index.html']).on('change', bs.reload);
+	gulp.watch(entryJsW, gulp.series('js'));
+	gulp.watch([entryJsDir, entryCss, './index.html']).on('change', bs.reload);
 }));
 
-const out = gulp.series('clean', 'css');
-gulp.task('out', out);
+gulp.task('default', gulp.series('clean', 'css', 'js', 'watch'));
