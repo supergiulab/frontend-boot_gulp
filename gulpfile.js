@@ -65,6 +65,21 @@ gulp.task('js', (done) => {
 	done();
 });
 
+gulp.task('js:dev', (done) => {
+	return browserify({
+		entries: [entryJsDir + entryJs]
+	})
+	.transform( babelify, { presets: ['@babel/preset-env'] } )
+	.bundle()
+	.pipe( source( entryJs ) )
+	.pipe( rename({ extname: '.min.js' }) )
+	.pipe( buffer() )
+	.pipe( sourcemaps.init({ loadMaps: true }) )
+	.pipe( sourcemaps.write( './' ) )
+	.pipe( gulp.dest(dist) )
+	done();
+});
+
 gulp.task('watch', gulp.series('css', 'js', () => {
 	bs.init({
 		server: { baseDir: './' }
